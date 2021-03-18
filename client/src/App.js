@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <button onClick={handleClick}>
-        test
+        test click button
       </button>
       <Weather />
     </div>

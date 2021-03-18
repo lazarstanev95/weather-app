@@ -8,7 +8,7 @@ app.use(cors());
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
-require(path.resolve('middlewares', 'index.middleware'))(app);
+require(path.resolve('server', 'middlewares', 'index.middleware'))(app);
 //
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getWeather, getWeatherData } from './WeatherSlice';
-import moment from 'moment';
+import WeatherCard from './WeatherCard';
 
 export default function Weather() {
     const dispatch = useDispatch();
@@ -9,16 +9,16 @@ export default function Weather() {
     const [lat, setLat] = useState([]);
     const [long, setLong] = useState([]);
 
-    useEffect(() => {
-        const fetchData = () => {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                setLat(position.coords.latitude);
-                setLong(position.coords.longitude);
-            });
-            if(lat.length !== 0 && long.length !== 0) {
-                dispatch(getWeather(lat, long))
-            }
+    const fetchData = () => {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            setLat(position.coords.latitude);
+            setLong(position.coords.longitude);
+        });
+        if(lat.length !== 0 && long.length !== 0) {
+            dispatch(getWeather(lat, long))
         }
+    }
+    useEffect(() => {
         fetchData();
         setInterval(() => {
             fetchData();
@@ -28,15 +28,10 @@ export default function Weather() {
     const renderWeather = () => {
         return (
             weather.data &&
-            <div style={{textAlign: 'center'}}>
-                City Name: {weather.data.name} <br/>
-                Temperatute: {weather.data.main.temp} &deg;C <br />
-                Sunrise: {new Date(weather.data.sys.sunrise * 1000).toLocaleTimeString('en-IN')} <br />
-                Sunset: {new Date(weather.data.sys.sunset * 1000).toLocaleTimeString('en-IN')} <br />
-                Humidity: {weather.data.main.humidity} % <br />
-                Day: {moment().format('dddd')} <br />
-                Date: {moment().format('LL')}
-            </div>
+            <WeatherCard 
+                weather={weather.data}
+                onClick={fetchData}
+            />
         )
     }
     return (

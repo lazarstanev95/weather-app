@@ -22,7 +22,6 @@ function App() {
         test click button
       </button> */}
       <Weather />
-      <img src="http://i.postimg.cc/28hVn4v1/DSC-0155.jpg"></img>
     </div>
   );
 }
